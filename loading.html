@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkNext - Checking Availability</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            background-image: radial-gradient(circle at center, rgba(153, 65, 225, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
+        header {
+            padding: 1rem;
+            width: 100%;
+            background-color: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-container img {
+            height: 40px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: rgb(153, 65, 225);
+            letter-spacing: 1px;
+        }
+        
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+        
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 600px;
+            text-align: center;
+            padding: 3rem;
+            background: rgba(20, 20, 20, 0.4);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(153, 65, 225, 0.2);
+            border: 1px solid rgba(153, 65, 225, 0.1);
+        }
+        
+        .loading-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+        
+        .loader-wrapper {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 1.5rem 0;
+        }
+        
+        .loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top: 4px solid rgb(153, 65, 225);
+            animation: spin 1.2s linear infinite;
+        }
+        
+        .loader:nth-child(2) {
+            border: 4px solid transparent;
+            border-right: 4px solid rgba(190, 65, 225, 0.8);
+            animation: spin 1.8s linear infinite reverse;
+        }
+        
+        .loader:nth-child(3) {
+            border: 4px solid transparent;
+            border-bottom: 4px solid rgba(220, 65, 225, 0.6);
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            animation: spin 1.5s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-message {
+            min-height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            color: #f0f0f0;
+            text-align: center;
+            margin-bottom: 1rem;
+            animation: fadeText 6s infinite;
+        }
+        
+        @keyframes fadeText {
+            0%, 16% { opacity: 0; }
+            20%, 30% { opacity: 1; }
+            33%, 100% { opacity: 0; }
+        }
+        
+        .status-bar {
+            width: 100%;
+            max-width: 400px;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 2rem;
+            position: relative;
+        }
+        
+        .status-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, rgb(153, 65, 225) 0%, rgb(190, 65, 225) 100%);
+            border-radius: 3px;
+            animation: progress 8s forwards;
+        }
+        
+        @keyframes progress {
+            0% { width: 0%; }
+            20% { width: 40%; }
+            50% { width: 60%; }
+            70% { width: 75%; }
+            100% { width: 100%; }
+        }
+        
+        .status-text {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-top: 0.5rem;
+        }
+        
+        .tip-container {
+            margin-top: 3rem;
+            max-width: 500px;
+            padding: 1rem;
+            background: rgba(153, 65, 225, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid rgb(153, 65, 225);
+        }
+        
+        .tip-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgb(190, 65, 225);
+            margin-bottom: 0.5rem;
+        }
+        
+        .tip-content {
+            font-size: 0.9rem;
+            color: #ddd;
+            line-height: 1.5;
+        }
+        
+        footer {
+            padding: 1rem;
+            background-color: rgba(10, 10, 10, 0.7);
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .footer-content {
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        @media (max-width: 480px) {
+            .loading-container {
+                padding: 2rem 1rem;
+            }
+            
+            .loading-title {
+                font-size: 1.7rem;
+            }
+            
+            .loader-wrapper {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="parking a-Photoroom.png" alt="ParkNext">
+            <div class="logo-text">PARKNEXT</div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="loading-container">
+            <h1 class="loading-title">Checking Availability</h1>
+            
+            <div class="loader-wrapper">
+                <div class="loader"></div>
+                <div class="loader"></div>
+                <div class="loader"></div>
+            </div>
+            
+            <div class="loading-message" id="loadingMessage">
+                Scanning nearby parking spaces...
+            </div>
+            
+            <div class="status-bar">
+                <div class="status-progress"></div>
+            </div>
+            <p class="status-text">Please wait while we fetch the latest parking data</p>
+            
+            <div class="tip-container">
+                <div class="tip-title">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Parking Tip</span>
+                </div>
+                <p class="tip-content">
+                    Did you know? ParkNext users save an average of 15 minutes per trip by booking their parking spot in advance.
+                </p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            &copy; 2025 ParkNext. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Array of loading messages
+        const messages = [
+            "Scanning nearby parking spaces...",
+            "Analyzing real-time availability...",
+            "Preparing your optimal parking options..."
+        ];
+        
+        // Get loading message element
+        const loadingMessage = document.getElementById('loadingMessage');
+        
+        // Set up message rotation
+        let currentMessage = 0;
+        
+        function rotateMessages() {
+            loadingMessage.style.opacity = 0;
+            
+            setTimeout(() => {
+                currentMessage = (currentMessage + 1) % messages.length;
+                loadingMessage.textContent = messages[currentMessage];
+                loadingMessage.style.opacity = 1;
+            }, 500);
+        }
+        
+        // Start message rotation
+        setInterval(rotateMessages, 2000);
+        
+        // Redirect to dashboard after loading completes
+        setTimeout(function() {
+            // Uncomment the line below when you're ready to enable automatic redirection
+            // window.location.href = 'dashboard.html';
+        }, 8000); // 8 seconds loading time
+    </script>
+</body>
+</html>

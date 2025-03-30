@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkNext - Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .signup-container {
+            width: 400px;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            border: none;
+            background-color: #f0f4f8;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input::placeholder {
+            color: #888;
+        }
+        .icon {
+            position: relative;
+        }
+        .icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+        .icon input {
+            padding-left: 40px;
+        }
+        .terms {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .terms input {
+            margin-right: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #9c3df9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        button:hover {
+            background-color: #8429e0;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+        }
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #444;
+        }
+        .divider span {
+            padding: 0 10px;
+        }
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .login-link a {
+            color: #9c3df9;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h1>Create Account</h1>
+        
+        <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <div class="icon">
+                <i>👤</i>
+                <input type="text" id="fullname" placeholder="Enter your full name">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email</label>
+            <div class="icon">
+                <i>✉️</i>
+                <input type="email" id="email" placeholder="Enter your email">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="username">Username</label>
+            <div class="icon">
+                <i>👤</i>
+                <input type="text" id="username" placeholder="Choose a username">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <div class="icon">
+                <i>🔒</i>
+                <input type="password" id="password" placeholder="Create a password">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <div class="icon">
+                <i>🔒</i>
+                <input type="password" id="confirm-password" placeholder="Confirm your password">
+            </div>
+        </div>
+        
+        <div class="terms">
+            <input type="checkbox" id="terms">
+            <label for="terms">I agree to the Terms of Service and Privacy Policy</label>
+        </div>
+        
+        <button type="submit">Sign Up</button>
+        
+        <div class="divider">
+            <span>OR</span>
+        </div>
+        
+        <div class="social-login">
+            <div class="social-btn">G</div>
+            <div class="social-btn">f</div>
+            <div class="social-btn">🍎</div>
+        </div>
+        
+        <div class="login-link">
+            Already have an account? <a href="#">Log in</a>
+        </div>
+    </div>
+</body>
+</html>

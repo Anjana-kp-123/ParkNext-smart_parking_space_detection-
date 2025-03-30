@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - ParkNext</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
+        header {
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .nav-logo {
+            height: 40px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: rgb(153, 65, 225);
+        }
+        
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 8rem 1rem;
+        }
+        
+        .register-container {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 16px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 4px 20px rgba(153, 65, 225, 0.3);
+        }
+        
+        .register-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .register-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: rgb(153, 65, 225);
+            margin-bottom: 0.5rem;
+        }
+        
+        .register-subtitle {
+            color: #ccc;
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #f0f0f0;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid rgba(153, 65, 225, 0.3);
+            border-radius: 8px;
+            background-color: rgba(50, 50, 50, 0.6);
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: rgb(153, 65, 225);
+            box-shadow: 0 0 0 3px rgba(153, 65, 225, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, rgb(153, 65, 225) 0%, rgb(190, 65, 225) 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(153, 65, 225, 0.4);
+            margin-top: 1rem;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(153, 65, 225, 0.6);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        .login-link a {
+            color: rgb(153, 65, 225);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: #888;
+        }
+        
+        .separator::before,
+        .separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #444;
+        }
+        
+        .separator::before {
+            margin-right: 1rem;
+        }
+        
+        .separator::after {
+            margin-left: 1rem;
+        }
+        
+        .social-signup {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: rgba(50, 50, 50, 0.6);
+            border: 1px solid #444;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        
+        .social-btn:hover {
+            background-color: rgba(70, 70, 70, 0.8);
+            transform: scale(1.05);
+        }
+        
+        footer {
+            padding: 2rem;
+            background-color: rgba(20, 20, 20, 0.8);
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            color: #fff;
+            font-size: 1.5rem;
+            transition: color 0.2s;
+        }
+        
+        .social-links a:hover {
+            color: rgb(153, 65, 225);
+        }
+        
+        .copyright {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .register-container {
+                padding: 1.5rem;
+            }
+            
+            .register-title {
+                font-size: 1.8rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-logo">
+                <img src="parking a-Photoroom.png" alt="ParkNext" height="40">
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#">Features</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <a href="login.html">Login</a>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="register-container">
+            <div class="register-header">
+                <h1 class="register-title">Create Account</h1>
+                <p class="register-subtitle">Join ParkNext and start finding parking spots quickly</p>
+            </div>
+            
+            <form id="register-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" id="firstName" name="firstName" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" class="form-input" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" name="password" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required>
+                </div>
+                
+                <button type="submit" class="submit-btn">Create Account</button>
+                
+                <div class="login-link">
+                    Already have an account? <a href="login.html">Login</a>
+                </div>
+                
+                <div class="separator">or continue with</div>
+                
+                <div class="social-signup">
+                    <a href="#" class="social-btn">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a href="#" class="social-btn">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-btn">
+                        <i class="fab fa-apple"></i>
+                    </a>
+                </div>
+            </form>
+    
+            <!-- Response message -->
+            <p id="responseMessage" style="text-align: center; margin-top: 10px;"></p>
+        </div>
+    </main>
+    
+   <!-- Add this in your HTML body (near bottom before </body>) -->
+<div id="register-popup" style="display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#4CAF50; color:white; padding:15px 30px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.2); font-size:16px; z-index:9999;">
+    Account created successfully! Redirecting to login...
+  </div>
+  
+  <script>
+      document.getElementById('register-form').addEventListener('submit', async function (e) {
+          e.preventDefault();
+  
+          const password = document.getElementById('password').value;
+          const confirmPassword = document.getElementById('confirmPassword').value;
+  
+          // Basic validation
+          if (password !== confirmPassword) {
+              alert('Passwords do not match');
+              document.getElementById('responseMessage').innerText = 'Passwords do not match!';
+              document.getElementById('responseMessage').style.color = 'red';
+              return;
+          }
+  
+          const formData = {
+              firstname: document.getElementById('firstName').value,
+              lastname: document.getElementById('lastName').value,
+              email: document.getElementById('email').value,
+              password: password
+          };
+  
+          try {
+              const response = await fetch('http://127.0.0.1:5000/register', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(formData)
+              });
+  
+              const result = await response.json();
+  
+              if (response.status === 200) {
+                  document.getElementById('responseMessage').innerText = result.message;
+                  document.getElementById('responseMessage').style.color = 'green';
+  
+                  // Show top popup message
+                  document.getElementById('register-popup').style.display = 'block';
+  
+                  // Redirect after 1 second
+                  setTimeout(() => {
+                      window.location.href = 'login.html';
+                  }, 1000);
+              } else {
+                  document.getElementById('responseMessage').innerText = result.message;
+                  document.getElementById('responseMessage').style.color = 'red';
+              }
+  
+          } catch (error) {
+              console.error('Error:', error);
+              document.getElementById('responseMessage').innerText = 'Server error. Try again later.';
+              document.getElementById('responseMessage').style.color = 'red';
+          }
+      });
+  </script>
+  
+    
+    
+</body>
+</html>
